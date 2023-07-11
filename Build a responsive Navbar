@@ -1,0 +1,90 @@
+HTML:
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <nav>
+    <div class="logo">Logo</div>
+    <div id="navbar" class="navbar">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </div>
+    <div id="hamburger" class="hamburger">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  </nav>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+CSS (styles.css):
+
+nav {
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.line {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .nav-active {
+    display: flex;
+  }
+}
+
+JavaScript (script.js):
+
+const hamburger = document.getElementById('hamburger');
+const navbar = document.getElementById('navbar');
+
+hamburger.addEventListener('click', function() {
+  navbar.classList.toggle('nav-active');
+});
