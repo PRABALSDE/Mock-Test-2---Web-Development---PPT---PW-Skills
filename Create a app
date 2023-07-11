@@ -1,0 +1,53 @@
+HTML:
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div>
+    <input id="textInput" type="text" placeholder="Type something">
+    <button id="submitButton">Submit</button>
+  </div>
+  <ul id="list"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+CSS (styles.css):
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+JavaScript (script.js):
+
+// Get the input and button elements
+const input = document.getElementById('textInput');
+const button = document.getElementById('submitButton');
+
+// Get the unordered list element
+const list = document.getElementById('list');
+
+// Add click event listener to the button
+button.addEventListener('click', function() {
+  // Get the input value
+  const inputValue = input.value;
+
+  // Create a new list item
+  const listItem = document.createElement('li');
+  listItem.textContent = inputValue;
+
+  // Append the new list item to the unordered list
+  list.appendChild(listItem);
+
+  // Clear the input box
+  input.value = '';
+});
