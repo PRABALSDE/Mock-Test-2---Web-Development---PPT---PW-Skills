@@ -1,0 +1,170 @@
+HTML:
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <form id="myForm" novalidate>
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" pattern="[0-9]{10}" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" min="18" required>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" required>
+      <option value="">Select</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" required>
+
+    <label for="color">Color:</label>
+    <input type="color" id="color" required>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+CSS (styles.css):
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+JavaScript (script.js):
+
+const form = document.getElementById('myForm');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
+const passwordInput = document.getElementById('password');
+const ageInput = document.getElementById('age');
+const genderInput = document.getElementById('gender');
+const dateInput = document.getElementById('date');
+const colorInput = document.getElementById('color');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  if (validateForm()) {
+    displaySuccessMessage();
+  }
+});
+
+function validateForm() {
+  let isValid = true;
+
+  if (!nameInput.value.trim()) {
+    displayErrorMessage(nameInput, 'Please enter your name');
+    isValid = false;
+  } else {
+    removeErrorMessage(nameInput);
+  }
+
+  if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
+    displayErrorMessage(emailInput, 'Please enter a valid email address');
+    isValid = false;
+  } else {
+    removeErrorMessage(emailInput);
+  }
+
+  if (!phoneInput.value.trim() || !isValidPhoneNumber(phoneInput.value.trim())) {
+    displayErrorMessage(phoneInput, 'Please enter a valid phone number (10 digits)');
+    isValid = false;
+  } else {
+    removeErrorMessage(phoneInput);
+  }
+
+  if (!passwordInput.value.trim() || passwordInput.value.length < 6) {
+    displayErrorMessage(passwordInput, 'Please enter a password with at least 6 characters');
+    isValid = false;
+  } else {
+    removeErrorMessage(passwordInput);
+  }
+
+  if (!ageInput.value.trim() || ageInput.value < 18) {
+    displayErrorMessage(ageInput, 'Please enter a valid age (minimum 18 years)');
+    isValid = false;
+  } else {
+    removeErrorMessage(ageInput);
+  }
+
+  if (!genderInput.value) {
+    displayErrorMessage(genderInput, 'Please select a gender');
+    isValid = false;
+  } else {
+    removeErrorMessage(genderInput);
+  }
+
+  if (!dateInput.value.trim()) {
+    displayErrorMessage(dateInput, 'Please select a date');
+    isValid = false;
+  } else {
+    removeErrorMessage(dateInput);
+  }
+
+  if (!colorInput.value.trim()) {
+    displayErrorMessage(colorInput, 'Please select a color');
+    isValid = false;
+  } else {
+    removeErrorMessage(colorInput);
+  }
+
+  return isValid;
+}
+
+function isValidEmail(email) {
+  const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+  return emailRegex.test(email);
+}
+
+function isValidPhoneNumber(phoneNumber) {
+  const phoneRegex = /^\d{10}$/;
+  return phoneRegex.test(phoneNumber);
+}
+
+function displayErrorMessage(input, message) {
+  const errorElement = document.createElement('div');
+  errorElement.textContent = message;
+  errorElement.className = 'error';
+
+  const parentElement = input.parentElement;
+  parentElement.appendChild(errorElement);
+}
+
+function removeErrorMessage(input) {
+  const parentElement = input.parentElement;
+  const errorElement = parentElement.querySelector('.error');
+  if (errorElement) {
+    parentElement.removeChild(errorElement);
+  }
+}
+
+function displaySuccessMessage() {
+  const successElement = document.createElement('div');
+  successElement.textContent = 'Form submitted successfully!';
+  successElement.className = 'success';
+
+  form.appendChild(successElement);
+}
